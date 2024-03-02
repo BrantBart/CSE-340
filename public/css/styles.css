@@ -4,3 +4,214 @@
 *:after {
   box-sizing: border-box;
 }
+
+/* mobile view */
+body {
+  background: white;
+  font-family: 'Sans', sans-serif;
+
+  a {
+    text-decoration: none;
+    color: #242332;
+  }
+
+  a:visited {
+    color: #242332;
+  }
+
+  a:hover {
+    color: gray;
+  }
+
+  a:active {
+    color: darkgray;
+  }
+}
+
+/* header */
+#top-header {
+  position: relative;
+
+  #tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+/* navigation bar */
+nav {
+  background-color: #242332;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav li {
+  padding: 10px;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+
+/* hero section */
+.hero h3, .hero p {
+  color: #01B0D3;
+  margin: 0;
+}
+
+#carimage {
+  background-image: url(../images/vehicles/delorean.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 10px;
+  background-position: 100px 0
+}
+
+#ad {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  padding: 20px;
+}
+
+.click {
+  margin-top: 5px;
+  background-color: #01B0D3;
+  color: 242332;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 3px;
+}
+
+.click:hover {
+  background-color: #00759F;
+  color: white;
+}
+
+/* everything else */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  /* Adjust as needed */
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  background-color: #01B0D3;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  /* Fill the container */
+}
+
+.button:hover {
+  background-color: #00759F;
+}
+
+.button-content {
+  text-align: center;
+}
+
+.button h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.button p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.upgrades {
+  text-align: center;
+}
+
+.button-content {
+  text-align: center;
+}
+
+#one {
+  height: 50px;
+  background-image: url(../images/upgrades/flux-cap.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#two {
+  height: 50px;
+  background-image: url(../images/upgrades/flame.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+#three {
+  height: 50px;
+  background-image: url(../images/upgrades/bumper_sticker.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#four {
+  height: 50px;
+  background-image: url(../images/upgrades/hub-cap.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.reviews li {
+  color: #242332;
+}
+
+
+/* footer */
+/* nothing now */
+
+
+/* 600px and greater */
+@media (min-width: 600px) {
+  html {
+    background-image: url("../images/site/checkerboard.jpg");
+    background-size: 400px 400px;
+  }
+
+  body {
+    margin: 10px auto;
+    width: 80%;
+    border: solid 4px #01B0D3;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+
+  .container {
+    display: flex;
+  }
+
+  .half-width {
+    width: 50%;
+  }
+}
