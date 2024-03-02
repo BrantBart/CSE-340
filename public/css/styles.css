@@ -1,45 +1,41 @@
-/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-/* mobile view */
 body {
   background: white;
   font-family: 'Sans', sans-serif;
-
-  a {
-    text-decoration: none;
-    color: #242332;
-  }
-
-  a:visited {
-    color: #242332;
-  }
-
-  a:hover {
-    color: gray;
-  }
-
-  a:active {
-    color: darkgray;
-  }
 }
 
-/* header */
+a {
+  text-decoration: none;
+  color: #242332;
+}
+
+a:visited {
+  color: #242332;
+}
+
+a:hover {
+  color: gray;
+}
+
+a:active {
+  color: darkgray;
+}
+
 #top-header {
   position: relative;
-
-  #tools {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
 }
 
-/* navigation bar */
+#tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 nav {
   background-color: #242332;
 }
@@ -57,13 +53,6 @@ nav li {
   color: white;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
-
-
-/* hero section */
 .hero h3, .hero p {
   color: #01B0D3;
   margin: 0;
@@ -74,7 +63,7 @@ a {
   background-repeat: no-repeat;
   background-size: contain;
   padding: 10px;
-  background-position: 100px 0
+  background-position: 100px 0;
 }
 
 #ad {
@@ -98,12 +87,10 @@ a {
   color: white;
 }
 
-/* everything else */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  /* Adjust as needed */
 }
 
 .button-container {
@@ -120,7 +107,6 @@ a {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
-  /* Fill the container */
 }
 
 .button:hover {
@@ -145,10 +131,6 @@ a {
   text-align: center;
 }
 
-.button-content {
-  text-align: center;
-}
-
 #one {
   height: 50px;
   background-image: url(../images/upgrades/flux-cap.png);
@@ -163,7 +145,6 @@ a {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
 }
 
 #three {
@@ -186,12 +167,6 @@ a {
   color: #242332;
 }
 
-
-/* footer */
-/* nothing now */
-
-
-/* 600px and greater */
 @media (min-width: 600px) {
   html {
     background-image: url("../images/site/checkerboard.jpg");
@@ -205,7 +180,6 @@ a {
     border-radius: 5px;
     padding: 10px;
   }
-
 
   .container {
     display: flex;
