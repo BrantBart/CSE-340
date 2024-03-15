@@ -1,0 +1,11 @@
+<!-- ejs file here that will be inserted as a used element here is my long comment suggested -->
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+    <%# messages() %>
+
+    <%- grid %>

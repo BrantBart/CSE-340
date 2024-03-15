@@ -53,6 +53,10 @@ nav li {
   color: white;
 }
 
+nav li a, nav li a:visited {
+  color: white;
+}
+
 .hero h3, .hero p {
   color: #01B0D3;
   margin: 0;
