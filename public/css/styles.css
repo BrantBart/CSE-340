@@ -171,6 +171,41 @@ nav li a, nav li a:visited {
   color: #242332;
 }
 
+
+/* inventory individual */
+
+.inventory-details {
+  background-color: #242332;
+  padding: 25px;
+  color: white;
+  border: solid #01B0D3 2px;
+  border-radius: 15px;
+}
+
+.inventory-details img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+ul#inv-display {
+  background-color: #242332;
+  padding: 25px;
+  border: solid #01B0D3 2px;
+  border-radius: 15px;
+  text-align: center;
+  list-style-type: none;
+}
+
+ul#inv-display li {
+  background-color: #01B0D3;
+  margin: 10px;
+  padding: 10px;
+  list-style-type: none;
+}
+
+
+
+
 @media (min-width: 600px) {
   html {
     background-image: url("../images/site/checkerboard.jpg");
@@ -191,5 +226,10 @@ nav li a, nav li a:visited {
 
   .half-width {
     width: 50%;
+  }
+
+  .inventory-details {
+    max-width: 50%;
+    margin: auto;
   }
 }

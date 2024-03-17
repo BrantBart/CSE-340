@@ -19,4 +19,25 @@ invCont.buildByClassificationId = async function (req, res, next) {
   });
 };
 
+invCont.buildById = async function (req, res, next) {
+  const invId = req.params.invId;
+  try {
+    const data = await invModel.getById(invId);
+    if (!data) {
+      return res.status(404).send("Inventory not found");
+    }
+    const grid = await utilities.buildGrid(data);
+    const nav = await utilities.getNav();
+    res.render("./inventory/inventoryDetail", {
+      title: data.name,
+      inventory: data,
+      nav,
+      grid,
+    });
+  } catch (error) {
+    console.error("buildById error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = invCont;

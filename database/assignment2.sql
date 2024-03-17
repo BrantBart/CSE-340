@@ -46,6 +46,7 @@ VALUES ('Custom'),
     ('Truck'),
     ('Sedan');
 -- Data for table `inventory`
+-- inv_id is the id field
 INSERT INTO public.inventory (
         inv_make,
         inv_model,

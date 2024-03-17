@@ -77,4 +77,35 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+Util.buildGrid = async function (vehicle) {
+  let grid = '<div class="inventory-details">';
+  grid +=
+    "<img src='" +
+    vehicle.inv_image +
+    "' alt='Image of " +
+    vehicle.inv_make +
+    " " +
+    vehicle.inv_model +
+    "' />";
+  grid +=
+    "<h2>" +
+    vehicle.inv_make +
+    " " +
+    vehicle.inv_model +
+    " (" +
+    vehicle.inv_year +
+    ")" +
+    "</h2>";
+  grid += "<p>Description: " + vehicle.inv_description + "</p>";
+
+  grid +=
+    "<p>Price: $" +
+    new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+    "</p>";
+  grid += "<p>Miles: " + vehicle.inv_miles + "</p>";
+  grid += "<p>Color: " + vehicle.inv_color + "</p>";
+  grid += "</div>";
+  return grid;
+};
+
 module.exports = Util;
