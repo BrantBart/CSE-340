@@ -28,7 +28,6 @@ app.use(static);
 /* ***********************
  * Index Route
  *************************/
-
 app.use("/inv", inventoryRoute);
 
 app.get("/", baseController.buildHome);
@@ -39,6 +38,7 @@ app.get("/", baseController.buildHome);
  *************************/
 const port = process.env.PORT;
 const host = process.env.HOST;
+// error stuff
 
 /* ***********************
  * Log statement to confirm server operation
