@@ -3,9 +3,7 @@ require("dotenv").config();
 
 /* ***************
  * Connection Pool
- * SSL Object needed for local testing of app
- * But will cause problems in production environment
- * If - else will make determination which to use
+ * SSL/TLS configuration based on the environment
  * *************** */
 
 let pool;
@@ -37,7 +35,10 @@ if (process.env.NODE_ENV === "development") {
   // For production environment and other environments
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    // No SSL configuration provided, relying on default SSL/TLS behavior
+    // SSL configuration - enable SSL/TLS
+    ssl: {
+      rejectUnauthorized: true, // Enforces SSL certificate verification
+    },
   });
 
   // Exporting the pool for use in other modules
