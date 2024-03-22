@@ -203,8 +203,43 @@ ul#inv-display li {
   list-style-type: none;
 }
 
+.login-bubble {
+  background-color: #32475C;
+  border: solid 3px gray;
+  border-radius: 15px;
+  max-width: 90%;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
 
+form {
+  display: inline-block;
 
+  text-align: left;
+  margin: auto;
+  color: white;
+}
+
+input {
+  border-radius: 5px;
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+form button {
+  border-radius: 25px;
+  padding: 5px 10px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 60px;
+}
+
+#show-password {
+  position: relative;
+  top: -34px;
+  left: 125px;
+}
 
 @media (min-width: 600px) {
   html {
