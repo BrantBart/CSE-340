@@ -16,6 +16,8 @@ const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const session = require("express-session");
 const pool = require("./database/");
+const cookieParser = require("cookie-parser");
+const utilities = require("./utilities/");
 
 /* ***********************
  * Middleware
@@ -42,6 +44,8 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
 
 /* ***********************
  * View Engine and Templates
@@ -78,3 +82,5 @@ const host = process.env.HOST;
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`);
 });
+
+

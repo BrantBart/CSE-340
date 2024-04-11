@@ -1,25 +1,25 @@
-const utilities = require("../utilities/index");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const accountModel = require("../models/account-model");
+const utilities = require("../utilities/index");
 
-/* ****************************************
- *  Deliver login view
- * *************************************** */
 async function buildLogin(req, res, next) {
-  let nav = await utilities.getNav();
-  res.render("account/login", {
-    title: "Login",
-    nav,
-  });
+  try {
+    let nav = await utilities.getNav();
+    res.render("account/login", {
+      title: "Login",
+      nav,
+    });
+  } catch (error) {
+    console.error("Error in buildLogin:", error);
+    return res.status(500).send("Internal Server Error");
+  }
 }
 
 async function buildRegister(req, res, next) {
   try {
     let nav = await utilities.getNav();
-
-    // Set flash message
     req.flash("notice", "This is a flash message.");
-
-    // Render the registration page with flash message
     res.render("account/register", {
       title: "Register",
       nav,
@@ -30,15 +30,9 @@ async function buildRegister(req, res, next) {
   }
 }
 
-/* ****************************************
- *  Process Registration
- * *************************************** */
-async function registerAccount(req, res) {
+async function registerAccount(req, res, next) {
   try {
-    // Get navigation HTML
     let nav = await utilities.getNav();
-
-    // Extract data from the request body
     const {
       account_firstname,
       account_lastname,
@@ -46,7 +40,6 @@ async function registerAccount(req, res) {
       account_password,
     } = req.body;
 
-    // Call the model function to register the account
     const regResult = await accountModel.registerAccount(
       account_firstname,
       account_lastname,
@@ -55,29 +48,121 @@ async function registerAccount(req, res) {
     );
 
     if (regResult) {
-      // Set flash message for successful registration
       req.flash(
         "success",
         `Congratulations, you're registered ${account_firstname}. Please log in.`
       );
-
-      // Redirect to the login page
       return res.redirect("/account/login");
     } else {
-      // Set flash message for failed registration
       req.flash("error", "Sorry, the registration failed.");
-
-      // Render the registration page with error message
       return res.status(501).render("account/register", {
         title: "Registration",
         nav,
       });
     }
   } catch (error) {
-    // Handle any errors
     console.error("Error in registerAccount:", error);
     return res.status(500).send("Internal Server Error");
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount };
+async function accountLogin(req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    const { account_email, account_password } = req.body;
+    const accountData = await accountModel.getAccountByEmail(account_email);
+
+    if (!accountData) {
+      req.flash("notice", "Please check your credentials and try again.");
+      return res.status(400).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      });
+    }
+
+    const match = await bcrypt.compare(
+      account_password,
+      accountData.account_password
+    );
+
+    if (match) {
+      delete accountData.account_password;
+      const accessToken = jwt.sign(
+        accountData,
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 3600 }
+      );
+      if (process.env.NODE_ENV === "development") {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+      } else {
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          secure: true,
+          maxAge: 3600 * 1000,
+        });
+      }
+      return res.redirect("/account/");
+    } else {
+      req.flash("notice", "Please check your credentials and try again.");
+      return res.status(400).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      });
+    }
+  } catch (error) {
+    console.error("Error in accountLogin:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+}
+
+/* ****************************************
+ *  Process login request
+ * ************************************ */
+async function accountLogin(req, res) {
+  let nav = await utilities.getNav();
+  const { account_email, account_password } = req.body;
+  const accountData = await accountModel.getAccountByEmail(account_email);
+  if (!accountData) {
+    req.flash("notice", "Please check your credentials and try again.");
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    });
+    return;
+  }
+  try {
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password;
+      const accessToken = jwt.sign(
+        accountData,
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 3600 }
+      );
+      if (process.env.NODE_ENV === "development") {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+      } else {
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          secure: true,
+          maxAge: 3600 * 1000,
+        });
+      }
+      return res.redirect("/account/");
+    }
+  } catch (error) {
+    return new Error("Access Forbidden");
+  }
+}
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  registerAccount,
+  accountLogin,
+};
